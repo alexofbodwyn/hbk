@@ -72,7 +72,7 @@ function DataTable({
               {headerGroup.headers.map(header => (
                 <TableHead
                   key={header.id}
-                  className="border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-gray-100"
+                  className="bg-gray-50 border border-gray-300 px-4 py-2 text-left cursor-pointer hover:bg-gray-100"
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ function DataTable({
             <TableRow
               key={row.id}
               className="hover:bg-gray-50 cursor-pointer"
-              onClick={() => handleClick(row)} // Pass the row data
+              onClick={() => handleClick(row)}
             >
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id} className="border border-gray-300 px-4 py-2 whitespace-break-spaces">

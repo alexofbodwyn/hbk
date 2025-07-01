@@ -9,6 +9,7 @@ import {
 } from "./ui/alert-dialog"
 import { MapPin, Clock, AlertTriangle, Info } from 'lucide-react';
 import type { NWSAlert } from '../types'
+import { cn } from '../lib/utils'
 
 interface AlertDetailViewProps {
   open: boolean;
@@ -54,14 +55,23 @@ function AlertDetailView({
         <AlertDialogHeader className="p-6">
           <div className="space-y-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getSeverityColor(properties.severity)}`}>
+              <span className={cn(
+                "inline-flex items-center px-3 py-1 rounded text-xs font-medium",
+                getSeverityColor(properties.severity)
+              )}>
                 {properties.severity || 'Unknown'}
               </span>
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getUrgencyColor(properties.urgency)}`}>
+              <span className={cn(
+                "inline-flex items-center px-3 py-1 rounded text-xs font-medium",
+                getUrgencyColor(properties.urgency)
+              )}>
                 {properties.urgency || 'Unknown'}
               </span>
               {properties.certainty && (
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-gray-300 bg-white text-gray-700">
+                <span className={cn(
+                  "inline-flex items-center px-3 py-1 rounded text-xs font-medium",
+                  "border border-gray-300 bg-white text-gray-700"
+                )}>
                   {properties.certainty}
                 </span>
               )}
