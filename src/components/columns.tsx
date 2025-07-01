@@ -54,7 +54,7 @@ export function createColumns(): ColumnDef<NWSAlert, any>[] {
         const status = info.getValue() as string;
         const colorClass = status?.toLowerCase() === 'actual' ? 'text-green-600' :
           status?.toLowerCase() === 'expired' ? 'text-red-600' :
-            'text-blue-600';
+            'text-slate-600';
         return (
           <span className={cn("font-medium", colorClass)}>
             {status}
