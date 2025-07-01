@@ -17,7 +17,7 @@ interface SeverityFilterProps {
 export function SeverityFilter({ value, onValueChange }: SeverityFilterProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-[180px]" id="">
+      <SelectTrigger className="w-[180px] cursor-pointer">
         <SelectValue placeholder="All severities" />
       </SelectTrigger>
       <SelectContent>

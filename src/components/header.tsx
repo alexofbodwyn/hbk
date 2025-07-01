@@ -80,7 +80,18 @@ export function Header({
     <div className="sticky top-0 bg-white border-b border-b-slate-200 p-5 z-10">
       <div className="flex gap-3 justify-between items-center">
 
-        <h2 className="text-xl font-bold">Weather Alerts ({results})</h2>
+        <div className="flex items-center gap-x-2">
+          <h2 className="text-xl font-bold">Weather Alerts ({results})</h2>
+          {dateRange?.from && (
+            <div className="text-sm text-slate-600 px-1">
+              {dateRange.to ? (
+                <p>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</p>
+              ) : (
+                <p>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</p>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className="w-fit flex items-center gap-x-5">
           <div className="flex gap-x-2">
@@ -101,7 +112,7 @@ export function Header({
                   <Button
                     variant="outline"
                     id="date"
-                    className="w-64 justify-between font-normal"
+                    className="w-64 justify-between font-normal cursor-pointer"
                     aria-labelledby="date-filter-label"
                     aria-expanded={open}
                   >
@@ -127,7 +138,7 @@ export function Header({
                   variant="outline"
                   size="icon"
                   onClick={clearDateRange}
-                  className="shrink-0"
+                  className="shrink-0 cursor-pointer"
                   title="Clear date range"
                   aria-label="Clear date range"
                 >
@@ -138,16 +149,6 @@ export function Header({
           </div>
         </div>
       </div>
-
-      {dateRange?.from && (
-        <div className="text-sm text-gray-600 px-1">
-          {dateRange.to ? (
-            <p>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</p>
-          ) : (
-            <p>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</p>
-          )}
-        </div>
-      )}
     </div>
   )
 }
