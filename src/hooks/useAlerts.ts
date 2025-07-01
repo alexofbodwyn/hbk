@@ -38,7 +38,7 @@ export function useAlerts({ params = {}, limit = 30 }: UseInfiniteAlertsOptions 
   };
 
   return useInfiniteQuery({
-    queryKey: ['alerts', baseParams], // Simple, direct key
+    queryKey: ['alerts', baseParams],
     queryFn: async ({ pageParam }) => {
       const alertParams = {
         ...baseParams,

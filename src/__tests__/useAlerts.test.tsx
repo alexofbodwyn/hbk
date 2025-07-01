@@ -73,4 +73,11 @@ describe('useAlerts', () => {
     expect(url.searchParams.get('start')).toBe('2024-01-01T00:00:00.000Z')
     expect(url.searchParams.get('end')).toBe('2024-01-01T23:59:59.999Z')
   })
+
+  it('should return pagination data from API response', async () => {
+    const result = await fetchAlerts({ limit: 30 })
+
+    expect(result.pagination).toBeDefined()
+    expect(result.pagination?.next).toBe('https://api.weather.gov/alerts?limit=30&cursor=next-cursor-123')
+  })
 })

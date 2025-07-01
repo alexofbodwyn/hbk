@@ -17,7 +17,10 @@ export const handlers = [
             severity: 'moderate'
           }
         }
-      ]
+      ],
+      pagination: {
+        next: 'https://api.weather.gov/alerts?limit=30&cursor=next-cursor-123'
+      }
     })
   })
 ]
