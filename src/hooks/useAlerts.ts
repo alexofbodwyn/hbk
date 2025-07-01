@@ -1,11 +1,9 @@
-// src/hooks/useAlerts.ts
-
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { NWSAlertsResponse, AlertsQueryParams } from '../types';
 
 const API_URL = 'https://api.weather.gov';
 
-async function fetchAlerts(params: AlertsQueryParams = {}): Promise<NWSAlertsResponse> {
+export async function fetchAlerts(params: AlertsQueryParams = {}): Promise<NWSAlertsResponse> {
   const url = new URL(`${API_URL}/alerts`);
 
   Object.entries(params).forEach(([key, value]) => {
