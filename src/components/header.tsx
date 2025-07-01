@@ -81,7 +81,7 @@ export function Header({
       <div className="flex gap-3 justify-between items-center">
 
         <div className="flex items-center gap-x-2">
-          <h2 className="text-xl font-bold">Weather Alerts ({results})</h2>
+          <h2 className="text-lg font-bold text-slate-600">Weather Alerts ({results})</h2>
           {dateRange?.from && (
             <div className="text-sm text-slate-600 px-1">
               {dateRange.to ? (

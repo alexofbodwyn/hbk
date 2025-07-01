@@ -100,11 +100,11 @@ function DataTable({
           {table.getRowModel().rows.map(row => (
             <TableRow
               key={row.id}
-              className="hover:bg-gray-50 cursor-pointer"
+              className="bg-white hover:bg-slate-100 cursor-pointer transition-all duration-300"
               onClick={() => handleClick(row)}
             >
               {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id} className="border border-gray-300 px-4 py-2 whitespace-break-spaces">
+                <TableCell key={cell.id} className="border border-gray-300 px-4 py-2 whitespace-break-spaces text-slate-800">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
