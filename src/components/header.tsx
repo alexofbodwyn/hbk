@@ -103,7 +103,7 @@ export function Header({
             />
           </div>
           <div className="flex gap-2">
-            <Label htmlFor="date">
+            <Label>
               Search by:
             </Label>
             <div className="flex gap-x-2">

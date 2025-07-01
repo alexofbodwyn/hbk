@@ -12,7 +12,7 @@ interface PaginationProps {
 
 export function Pagination({ pagination, onLoadMore, isLoading, totalLoaded }: PaginationProps) {
   return (
-    <div className="sticky top-full bg-white p-5 border-t border-t-slate-200">
+    <div className="fixed w-full bottom-0 bg-white p-5 border-t border-t-slate-200">
       <div className="flex flex-col items-center gap-3">
         {totalLoaded && (
           <div className="text-sm text-slate-600">

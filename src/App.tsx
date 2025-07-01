@@ -68,7 +68,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-36">
       <Header
         onDateRangeChange={handleDateRangeChange}
         startDate={startDate}
