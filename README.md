@@ -4,7 +4,7 @@ A React application displaying National Weather Service alerts with filtering, s
 
 ## Tech Stack
 
-- **Framework:** Vite + React 18
+- **Framework:** Vite + React 19
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Data Fetching:** TanStack Query (React Query)
