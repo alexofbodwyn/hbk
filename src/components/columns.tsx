@@ -13,7 +13,9 @@ const getSeverityColor = (severity?: string) => {
   }
 };
 
-export function createColumns(): ColumnDef<NWSAlert, any>[] {
+type AlertCellValue = string | React.ReactNode;
+
+export function createColumns(): ColumnDef<NWSAlert, AlertCellValue>[] {
 
   return [
     {
@@ -35,7 +37,7 @@ export function createColumns(): ColumnDef<NWSAlert, any>[] {
       id: 'event',
       header: 'Event Type',
       cell: (info) => (
-        <span className="font-medium">{info.getValue()}</span>
+        <span className="font-medium">{String(info.getValue() || '')}</span>
       ),
     },
     {
@@ -43,7 +45,7 @@ export function createColumns(): ColumnDef<NWSAlert, any>[] {
       id: 'areas',
       header: 'Areas Affected',
       cell: (info) => (
-        <span className="text-sm">{info.getValue()}</span>
+        <span className="text-sm">{String(info.getValue() || '')}</span>
       ),
     },
     {
@@ -66,21 +68,27 @@ export function createColumns(): ColumnDef<NWSAlert, any>[] {
       accessorKey: 'properties.effective',
       id: 'effective',
       header: 'Effective Time',
-      cell: (info) => (
-        <span className="text-sm">
-          {new Date(info.getValue()).toLocaleString()}
-        </span>
-      ),
+      cell: (info) => {
+        const value = info.getValue() as string | undefined;
+        return (
+          <span className="text-sm">
+            {value ? new Date(value).toLocaleString() : 'N/A'}
+          </span>
+        )
+      },
     },
     {
       accessorKey: 'properties.expires',
       id: 'expires',
       header: 'Expires',
-      cell: (info) => (
-        <span className="text-sm">
-          {info.getValue() ? new Date(info.getValue()).toLocaleString() : 'No expiration'}
-        </span>
-      ),
+      cell: (info) => {
+        const value = info.getValue() as string | undefined;
+        return (
+          <span className="text-sm">
+            {value ? new Date(value).toLocaleString() : 'No expiration'}
+          </span>
+        );
+      },
     }
 
   ]

@@ -33,7 +33,7 @@ function DataTable({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [toggleDetailView, setToggleDetailView] = useState<boolean>(false);
-  const [selectedAlert, setSelectedAlert] = useState<any>(null);
+  const [selectedAlert, setSelectedAlert] = useState<NWSAlert | null>(null);
 
   const columns = useMemo(
     () =>
