@@ -13,16 +13,14 @@ import type { NWSAlert } from '../types'
 interface AlertDetailViewProps {
   open: boolean;
   setOpen: () => void;
-  alert: NWSAlert | null;
+  alert: NWSAlert
 }
 
-export function AlertDetailView({
+function AlertDetailView({
   open,
   setOpen,
   alert
 }: AlertDetailViewProps) {
-
-  if (!alert) return null;
 
   const { properties } = alert;
 
@@ -55,7 +53,6 @@ export function AlertDetailView({
       <AlertDialogContent className="min-w-3xl max-h-[90vh] overflow-y-auto p-0">
         <AlertDialogHeader className="p-6">
           <div className="space-y-3">
-            {/* Badges */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getSeverityColor(properties.severity)}`}>
                 {properties.severity || 'Unknown'}
@@ -78,7 +75,6 @@ export function AlertDetailView({
 
         <AlertDialogDescription asChild className="p-6 pt-0">
           <div className="space-y-4">
-            {/* Event Type & Category */}
             {properties.event && (
               <div className="flex items-center gap-2 text-sm">
                 <AlertTriangle className="h-4 w-4 text-orange-500" />
@@ -93,7 +89,6 @@ export function AlertDetailView({
               </div>
             )}
 
-            {/* Location */}
             {properties?.areaDesc && (
               <div className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
@@ -104,7 +99,6 @@ export function AlertDetailView({
               </div>
             )}
 
-            {/* Timing Information */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4 text-green-500" />
@@ -132,7 +126,6 @@ export function AlertDetailView({
               </div>
             </div>
 
-            {/* Description */}
             {properties.description && (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
@@ -145,7 +138,6 @@ export function AlertDetailView({
               </div>
             )}
 
-            {/* Instructions */}
             {properties.instruction && (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
@@ -158,7 +150,6 @@ export function AlertDetailView({
               </div>
             )}
 
-            {/* Additional Info */}
             <div className="pt-4 border-t border-gray-200">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-600">
                 {properties.senderName && (
@@ -185,3 +176,5 @@ export function AlertDetailView({
     </AlertDialog>
   )
 }
+
+export default AlertDetailView

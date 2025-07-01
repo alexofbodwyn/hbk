@@ -1,5 +1,3 @@
-// src/components/AlertsTable.tsx
-
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,8 +6,9 @@ import {
   flexRender,
   type SortingState,
   type ColumnFiltersState,
+  type Row,
 } from '@tanstack/react-table';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import { createColumns } from './columns';
 import type { NWSAlert } from '../types';
 
@@ -21,10 +20,11 @@ import {
   TableRow,
   TableCell,
 } from './ui/table'
-import { AlertDetailView } from './alertDetailView';
+
+const AlertDetailView = lazy(() => import('./alertDetailView'));
 
 function DataTable({
-  data
+  data // Note: passing data as prop rather than using query key for seperation and reusability 
 }: {
   data: NWSAlert[]
 }) {
@@ -53,7 +53,7 @@ function DataTable({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const handleClick = (rowData: any) => {
+  const handleClick = (rowData: Row<NWSAlert>) => {
     setSelectedAlert(rowData.original);
     setToggleDetailView(true);
   }
@@ -103,11 +103,16 @@ function DataTable({
         </TableBody>
       </Table>
 
-      <AlertDetailView
-        open={toggleDetailView}
-        setOpen={handleCloseDetail}
-        alert={selectedAlert}
-      />
+      {selectedAlert && (
+        // Note: Single instance outside table to preserve semantic HTML structure
+        <Suspense fallback={<div>Loading...</div>}>
+          <AlertDetailView
+            open={toggleDetailView}
+            setOpen={handleCloseDetail}
+            alert={selectedAlert}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

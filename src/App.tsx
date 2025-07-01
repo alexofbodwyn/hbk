@@ -1,10 +1,9 @@
 import './App.css';
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useAlerts } from './hooks/useAlerts';
 import DataTable from './components/dataTable';
 import { Pagination } from './components/pagination';
 import { Header } from './components/header';
-
 
 function App() {
   const [startDate, setStartDate] = useState<string | null>(null);
@@ -29,7 +28,10 @@ function App() {
     setEndDate(newEndDate);
   };
 
-  const allAlerts = data?.pages?.flatMap(page => page.features) || [];
+  const allAlerts = useMemo(() =>
+    data?.pages?.flatMap(page => page.features) || [],
+    [data?.pages]
+  ) // Note: flattens paginated responses into continuous list
 
   if (isLoading) {
     return <div className="p-5">Loading alerts...</div>;

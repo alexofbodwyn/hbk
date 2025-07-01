@@ -1,6 +1,4 @@
-"use client"
-
-import * as React from "react"
+import { useState } from "react"
 import { ChevronDownIcon, X } from "lucide-react"
 import type { DateRange } from "react-day-picker"
 
@@ -26,8 +24,8 @@ export function Header({
   endDate,
   results = 0
 }: HeaderProps) {
-  const [open, setOpen] = React.useState(false)
-  const [dateRange, setDateRange] = React.useState<DateRange | undefined>(() => {
+  const [open, setOpen] = useState(false)
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
     if (startDate && endDate) {
       return {
         from: new Date(startDate),
@@ -89,6 +87,8 @@ export function Header({
                   variant="outline"
                   id="date"
                   className="w-64 justify-between font-normal"
+                  aria-labelledby="date-filter-label"
+                  aria-expanded={open}
                 >
                   {formatDateRange()}
                   <ChevronDownIcon className="h-4 w-4" />
@@ -101,7 +101,7 @@ export function Header({
                   onSelect={handleDateSelect}
                   captionLayout="dropdown"
                   numberOfMonths={2}
-                  className="rounded-md border"
+                  className="rounded-md border border-slate-200"
                   hidden={{ after: today }}
                 />
               </PopoverContent>
@@ -114,6 +114,7 @@ export function Header({
                 onClick={clearDateRange}
                 className="shrink-0"
                 title="Clear date range"
+                aria-label="Clear date range"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -124,9 +125,9 @@ export function Header({
         {dateRange?.from && (
           <div className="text-sm text-gray-600 px-1">
             {dateRange.to ? (
-              <>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</>
+              <p>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</p>
             ) : (
-              <>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</>
+              <p>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</p>
             )}
           </div>
         )}

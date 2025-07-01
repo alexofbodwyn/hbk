@@ -27,9 +27,11 @@ export async function fetchAlerts(params: AlertsQueryParams = {}): Promise<NWSAl
 }
 
 interface UseInfiniteAlertsOptions {
-  params?: Omit<AlertsQueryParams, 'cursor'>;
+  params?: Omit<AlertsQueryParams, 'cursor'>;  // Note: omitting cursor as infinite query handles this
   limit?: number;
 }
+
+// Note: limit=30 for testing. Production should use higher values or API defaults
 
 export function useAlerts({ params = {}, limit = 30 }: UseInfiniteAlertsOptions = {}) {
   const baseParams = {
