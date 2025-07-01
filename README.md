@@ -22,7 +22,6 @@ A React application displaying National Weather Service alerts with filtering, s
 - 📅 **Date Range Filtering** - Filter alerts by custom date ranges
 - 🔍 **Detailed Alert View** - Click any row to view comprehensive alert details
 - ♾️ **Infinite Loading** - Load more alerts seamlessly
-- 📱 **Responsive Design** - Works on desktop and mobile
 - 🕒 **Local Timezone** - All dates displayed in user's local timezone
 
 ## Getting Started
