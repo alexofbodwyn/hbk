@@ -28,6 +28,7 @@ export function createColumns(): ColumnDef<NWSAlert, any>[] {
           {row.original.properties.severity}
         </span>
       ),
+      filterFn: 'includesString',
     },
     {
       accessorKey: 'properties.event',

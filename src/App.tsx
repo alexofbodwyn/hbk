@@ -8,6 +8,7 @@ import { Header } from './components/header';
 function App() {
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
+  const [severityFilter, setSeverityFilter] = useState<string>("all");
 
   const {
     data,
@@ -26,6 +27,10 @@ function App() {
   const handleDateRangeChange = (newStartDate: string | null, newEndDate: string | null) => {
     setStartDate(newStartDate);
     setEndDate(newEndDate);
+  };
+
+  const handleSeverityFilterChange = (severity: string) => {
+    setSeverityFilter(severity);
   };
 
   const allAlerts = useMemo(() =>
@@ -49,6 +54,8 @@ function App() {
           startDate={startDate}
           endDate={endDate}
           results={0}
+          severityFilter={severityFilter}
+          onSeverityFilterChange={handleSeverityFilterChange}
         />
         <div className="p-5">
           {startDate || endDate ?
@@ -67,8 +74,13 @@ function App() {
         startDate={startDate}
         endDate={endDate}
         results={allAlerts.length}
+        severityFilter={severityFilter}
+        onSeverityFilterChange={handleSeverityFilterChange}
       />
-      <DataTable data={allAlerts} />
+      <DataTable
+        data={allAlerts}
+        severityFilter={severityFilter}
+      />
       <Pagination
         pagination={{ next: hasNextPage ? 'has-more' : undefined }}
         onLoadMore={() => fetchNextPage()}

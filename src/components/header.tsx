@@ -11,17 +11,23 @@ import {
   PopoverTrigger,
 } from "./ui/popover"
 
+import { SeverityFilter } from "./severityFilter"
+
 interface HeaderProps {
   onDateRangeChange: (startDate: string | null, endDate: string | null) => void;
+  onSeverityFilterChange: (severity: string) => void;
   startDate?: string | null;
   endDate?: string | null;
+  severityFilter?: string;
   results: number;
 }
 
 export function Header({
   onDateRangeChange,
+  onSeverityFilterChange,
   startDate,
   endDate,
+  severityFilter = "all",
   results = 0
 }: HeaderProps) {
   const [open, setOpen] = useState(false)
@@ -76,62 +82,72 @@ export function Header({
 
         <h2 className="text-xl font-bold">Weather Alerts ({results})</h2>
 
-        <div className="w-fit flex items-center">
-          <Label htmlFor="date" className="px-2">
-            Filter by:
-          </Label>
+        <div className="w-fit flex items-center gap-x-5">
+          <div className="flex gap-x-2">
+            <Label htmlFor="severity-filter">Filter by:</Label>
+            <SeverityFilter
+              value={severityFilter}
+              onValueChange={onSeverityFilterChange}
+              id="severity-filter"
+            />
+          </div>
           <div className="flex gap-2">
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
+            <Label htmlFor="date">
+              Search by:
+            </Label>
+            <div className="flex gap-x-2">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    id="date"
+                    className="w-64 justify-between font-normal"
+                    aria-labelledby="date-filter-label"
+                    aria-expanded={open}
+                  >
+                    {formatDateRange()}
+                    <ChevronDownIcon className="h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                  <Calendar
+                    mode="range"
+                    selected={dateRange}
+                    onSelect={handleDateSelect}
+                    captionLayout="dropdown"
+                    numberOfMonths={2}
+                    className="rounded-md border border-slate-200"
+                    hidden={{ after: today }}
+                  />
+                </PopoverContent>
+              </Popover>
+
+              {dateRange?.from && (
                 <Button
                   variant="outline"
-                  id="date"
-                  className="w-64 justify-between font-normal"
-                  aria-labelledby="date-filter-label"
-                  aria-expanded={open}
+                  size="icon"
+                  onClick={clearDateRange}
+                  className="shrink-0"
+                  title="Clear date range"
+                  aria-label="Clear date range"
                 >
-                  {formatDateRange()}
-                  <ChevronDownIcon className="h-4 w-4" />
+                  <X className="h-4 w-4" />
                 </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                <Calendar
-                  mode="range"
-                  selected={dateRange}
-                  onSelect={handleDateSelect}
-                  captionLayout="dropdown"
-                  numberOfMonths={2}
-                  className="rounded-md border border-slate-200"
-                  hidden={{ after: today }}
-                />
-              </PopoverContent>
-            </Popover>
-
-            {dateRange?.from && (
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={clearDateRange}
-                className="shrink-0"
-                title="Clear date range"
-                aria-label="Clear date range"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            )}
+              )}
+            </div>
           </div>
         </div>
-
-        {dateRange?.from && (
-          <div className="text-sm text-gray-600 px-1">
-            {dateRange.to ? (
-              <p>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</p>
-            ) : (
-              <p>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</p>
-            )}
-          </div>
-        )}
       </div>
+
+      {dateRange?.from && (
+        <div className="text-sm text-gray-600 px-1">
+          {dateRange.to ? (
+            <p>Showing alerts from {dateRange.from.toLocaleDateString()} to {dateRange.to.toLocaleDateString()}</p>
+          ) : (
+            <p>Showing alerts from {dateRange.from.toLocaleDateString()} onwards</p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

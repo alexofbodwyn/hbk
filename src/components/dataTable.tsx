@@ -24,14 +24,16 @@ import {
 const AlertDetailView = lazy(() => import('./alertDetailView'));
 
 function DataTable({
-  data // Note: passing data as prop rather than using query key for seperation and reusability 
+  data, // Note: passing data as prop rather than using query key for seperation and reusability 
+  severityFilter
 }: {
-  data: NWSAlert[]
+  data: NWSAlert[];
+  severityFilter: string;
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [toggleDetailView, setToggleDetailView] = useState<boolean>(false);
-  const [selectedAlert, setSelectedAlert] = useState<any>(null); // Add selected alert state
+  const [selectedAlert, setSelectedAlert] = useState<any>(null);
 
   const columns = useMemo(
     () =>
@@ -39,8 +41,15 @@ function DataTable({
     [],
   );
 
+  const filteredData = useMemo(() => {
+    if (severityFilter === "all") return data;
+    return data.filter(alert =>
+      alert.properties.severity?.toLowerCase() === severityFilter.toLowerCase()
+    );
+  }, [data, severityFilter]);
+
   const table = useReactTable({
-    data: data || [],
+    data: filteredData || [],
     columns,
     state: {
       sorting,
@@ -48,6 +57,7 @@ function DataTable({
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    globalFilterFn: 'includesString',
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
