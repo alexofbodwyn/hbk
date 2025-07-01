@@ -12,6 +12,10 @@ A React application displaying National Weather Service alerts with filtering, s
 - **UI Components:** shadcn/ui + Radix UI
 - **Icons:** Lucide React
 
+## Performance
+
+![Lighthouse Score](./images/lighthouse.png)
+
 ## Features
 
 - 📊 **Interactive Data Table** - Sort and filter weather alerts
